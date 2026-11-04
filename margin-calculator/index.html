@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Margin Calculator · Central Building Supply</title>
+<meta http-equiv="Cache-Control" content="no-cache">
 <meta name="theme-color" content="#1f3a2e">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -38,9 +39,12 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,va
 .stat{flex:1;background:rgba(255,255,255,.12);border-radius:12px;padding:10px 12px}
 .stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums}
 .stat small{opacity:.8;font-size:.75rem}
-.copy{all:unset;cursor:pointer;float:right;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;transition:.2s}
+.copy{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;min-height:52px;line-height:52px;text-align:center;font-size:1.1rem;font-weight:700;background:#fff;color:var(--accent);border-radius:14px;margin:0 0 14px;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.copy.ok{background:#16a34a;color:#fff}
+#tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hint{font-size:.78rem;opacity:.85;margin:-8px 0 10px;font-weight:600}
 .big,.stat b{-webkit-user-select:text;user-select:text}
-.copy:hover{background:rgba(255,255,255,.28)}
+.copy:hover{filter:brightness(.96)}
 h2{font-size:1rem;margin:0 0 10px;font-weight:700}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
 th{text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line)}
@@ -72,9 +76,12 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;lett
 </div>
 
 <div class="card result">
- <button class="copy" id="copy">Copy</button>
+ <div id="tap" role="button" aria-label="Tap to copy price">
  <div class="rl" id="rl">Selling price</div>
  <div class="big" id="big">$142.86</div>
+ <div class="hint">Tap to copy</div>
+ </div>
+ <button class="copy" id="copy">Copy price</button>
  <div class="row">
   <div class="stat"><small>Profit / unit</small><b id="profit">$42.86</b></div>
   <div class="stat"><small id="s2l">Markup on cost</small><b id="s2">42.86%</b></div>
@@ -90,7 +97,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;lett
  <b>Margin vs. markup.</b> Margin is profit as a share of the <b>selling price</b>; markup is profit as a share of <b>cost</b>. A 30% margin means price = cost ÷ 0.70. Just adding 30% to cost (×1.30) only gets you about a <b>23% margin</b>.
 </div>
 
-<footer>Central Building Supply · Westcliffe, CO</footer>
+<footer>Central Building Supply · Westcliffe, CO<br><small style="opacity:.6">v3</small></footer>
 </div>
 <script>
 const $=id=>document.getElementById(id);
@@ -127,11 +134,13 @@ function setMode(m){mode=m;$('seg').classList.toggle('rev',m==='r');document.que
  if(m==='r'&&!$('price').value){const c=num($('cost').value),mm=num($('margin').value);if(c>=0&&mm>=0&&mm<100)$('price').value=priceFor(c,mm).toFixed(2)}calc()}
 document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
 function selEl(el){try{const r=document.createRange();r.selectNodeContents(el);const sl=window.getSelection();sl.removeAllRanges();sl.addRange(r)}catch(e){}}
-function legacyCopy(txt){let ok=false;const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,txt.length);try{ok=document.execCommand('copy')}catch(e){ok=false}t.remove();return ok}
-function copyFb(ok){const b=$('copy');b.textContent=ok?'Copied!':'Press and hold to copy';if(!ok)selEl($('big'));clearTimeout(b._t);b._t=setTimeout(()=>b.textContent='Copy',ok?1500:3500)}
-$('copy').addEventListener('click',()=>{if(!cur){copyFb(false);return}const txt=String(cur).trim();
- if(navigator.clipboard&&navigator.clipboard.writeText&&window.isSecureContext){navigator.clipboard.writeText(txt).then(()=>copyFb(true),()=>copyFb(legacyCopy(txt)))}
- else copyFb(legacyCopy(txt))});
+function legacyCopy(txt){let ok=false;const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:-9999px;width:200px;height:40px;font-size:16px;opacity:1';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,99999);try{ok=document.execCommand('copy')}catch(e){ok=false}t.remove();try{window.getSelection().removeAllRanges()}catch(e){}return ok}
+function copyFb(ok,txt){const b=$('copy');clearTimeout(b._t);if(ok){b.textContent='Copied '+txt+' \u2713';b.classList.add('ok');try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}}else{b.textContent='Press and hold the price to copy';selEl($('big'))}b._t=setTimeout(()=>{b.textContent='Copy price';b.classList.remove('ok')},ok?2000:3500)}
+function doCopy(){if(!cur){copyFb(false);return}const txt=String(cur).trim();
+ const ok=legacyCopy(txt);
+ if(navigator.clipboard&&navigator.clipboard.writeText){try{navigator.clipboard.writeText(txt).then(()=>{if(!ok)copyFb(true,txt)},()=>{if(!ok)copyFb(false)})}catch(e){}}
+ if(ok)copyFb(true,txt);else if(!(navigator.clipboard&&navigator.clipboard.writeText))copyFb(false)}
+$('copy').addEventListener('click',doCopy);$('tap').addEventListener('click',doCopy);
 calc();
 </script>
 </body>
