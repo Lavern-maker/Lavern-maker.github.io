@@ -5,62 +5,83 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Margin Calculator · Central Building Supply</title>
 <meta http-equiv="Cache-Control" content="no-cache">
-<meta name="theme-color" content="#1f3a2e">
+<meta name="theme-color" content="#07080a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f6f1ea;--bg2:#ede3d4;--card:#fffdf9;--ink:#2a2420;--muted:#7a6d62;--line:#e7dccd;--accent:#1f5a40;--accent2:#2f7a57;--wood:#b7793f;--wood2:#8a5a2b;--warn:#b4472f;--shadow:0 1px 2px rgba(60,40,20,.06),0 10px 30px -10px rgba(60,40,20,.18)}
-@media (prefers-color-scheme:dark){:root{--bg:#16130f;--bg2:#1f1a15;--card:#221d18;--ink:#f3ece3;--muted:#a89a8b;--line:#342c24;--accent:#4fb486;--accent2:#6fcf9f;--wood:#d79a5c;--wood2:#e8b47c;--warn:#ef8a70;--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -12px rgba(0,0,0,.6)}}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#07080a;--card:rgba(22,24,28,.62);--ink:#f4f1ec;--muted:#9aa0a8;--line:rgba(255,255,255,.09);--or:#ff6a1a;--or2:#ffb02e;--em:#19e68c;--em2:#0fa968;--warn:#ff7a66}
 *{box-sizing:border-box}html,body{margin:0}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 10% -10%,var(--bg2),transparent),var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:Inter,system-ui,-apple-system,Roboto,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blobs i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(80px);opacity:.35;animation:drift 22s ease-in-out infinite alternate}
+.blobs i:nth-child(1){background:var(--or);top:-25vmax;left:-20vmax}
+.blobs i:nth-child(2){background:var(--em2);bottom:-30vmax;right:-25vmax;animation-duration:28s}
+.blobs i:nth-child(3){background:#5b2bff;top:30%;left:40%;width:35vmax;height:35vmax;opacity:.18;animation-duration:34s}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
 .wrap{max-width:560px;margin:0 auto;padding:24px 16px calc(32px + env(safe-area-inset-bottom))}
 header{display:flex;align-items:center;gap:12px;margin:8px 4px 20px}
-.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--wood),var(--wood2));display:grid;place-items:center;box-shadow:var(--shadow)}
-.logo svg{width:24px;height:24px}
-h1{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin:0}
+.logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--or),var(--or2));display:grid;place-items:center;box-shadow:0 0 24px rgba(255,106,26,.55);animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-3px) rotate(-4deg)}}
+.logo svg{width:26px;height:26px}
+h1{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:-.02em;margin:0;background:linear-gradient(90deg,#fff,var(--or2) 60%,var(--or));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{color:var(--muted);font-size:.85rem;margin-top:2px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg2);border-radius:14px;padding:4px;margin-bottom:16px;position:relative}
-.seg button{all:unset;text-align:center;padding:10px;border-radius:10px;font-weight:600;font-size:.9rem;color:var(--muted);cursor:pointer;transition:.2s;position:relative;z-index:1}
-.seg button.on{color:var(--ink)}
-.seg .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:var(--card);border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px;backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:0 20px 40px -20px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.06);animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.card:nth-of-type(2){animation-delay:.06s}.card:nth-of-type(3){animation-delay:.12s}.card:nth-of-type(4){animation-delay:.18s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:16px;position:relative}
+.seg button{all:unset;text-align:center;padding:11px;border-radius:10px;font-weight:700;font-size:.92rem;color:var(--muted);cursor:pointer;transition:color .2s,transform .12s;position:relative;z-index:1;-webkit-tap-highlight-color:transparent}
+.seg button:active{transform:scale(.95)}
+.seg button.on{color:#120a04}
+.seg .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:linear-gradient(135deg,var(--or),var(--or2));border-radius:10px;box-shadow:0 0 18px rgba(255,106,26,.5);transition:transform .35s cubic-bezier(.5,1.6,.4,1)}
 .seg.rev .pill{transform:translateX(100%)}
-label{display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 6px 4px}
+label{display:block;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 6px 4px}
 .field{position:relative;margin-bottom:14px}
 .field span{position:absolute;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1.3rem;font-weight:600;pointer-events:none}
 .field .pre{left:16px}.field .suf{right:16px}
-input{width:100%;font:inherit;font-size:1.6rem;font-weight:700;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:14px 44px 14px 38px;outline:none;transition:border-color .2s,box-shadow .2s}
-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
-.msg{color:var(--warn);font-size:.85rem;min-height:1.2em;margin:-6px 4px 6px;transition:opacity .2s}
-.result{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 70%,#0b1f16));color:#fff;border:none}
-.rl{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;opacity:.8;font-weight:600}
-.big{font-size:3rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:4px 0 12px;font-variant-numeric:tabular-nums;transition:opacity .15s}
-.row{display:flex;gap:10px}
-.stat{flex:1;background:rgba(255,255,255,.12);border-radius:12px;padding:10px 12px}
-.stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums}
-.stat small{opacity:.8;font-size:.75rem}
-.copy{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;min-height:52px;line-height:52px;text-align:center;font-size:1.1rem;font-weight:700;background:#fff;color:var(--accent);border-radius:14px;margin:0 0 14px;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
-.copy.ok{background:#16a34a;color:#fff}
+input{width:100%;font:inherit;font-family:'Space Grotesk',Inter,sans-serif;font-size:1.7rem;font-weight:700;color:var(--ink);background:rgba(0,0,0,.45);border:2px solid var(--line);border-radius:16px;padding:14px 44px 14px 38px;outline:none;transition:border-color .2s,box-shadow .25s,transform .15s}
+input:focus{border-color:var(--or);box-shadow:0 0 0 4px rgba(255,106,26,.18),0 0 24px rgba(255,106,26,.25);transform:translateY(-1px)}
+.msg{color:var(--warn);font-size:.85rem;min-height:1.2em;margin:-6px 4px 6px}
+.result{background:linear-gradient(150deg,rgba(25,230,140,.16),rgba(10,20,16,.7) 55%,rgba(255,106,26,.12));border:1px solid rgba(25,230,140,.28);position:relative;overflow:hidden}
+.result:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(25,230,140,.12),transparent 30%);animation:spin 9s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(1turn)}}
+.result>*{position:relative}
+.rl{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--em);font-weight:700}
+.big{font-family:'Space Grotesk',Inter,sans-serif;font-size:3.4rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin:4px 0 12px;font-variant-numeric:tabular-nums;color:#eafff4;text-shadow:0 0 12px rgba(25,230,140,.7),0 0 36px rgba(25,230,140,.35);transition:transform .15s}
+#tap:active .big{transform:scale(.97)}
+.row{display:flex;gap:10px;margin-top:12px}
+.stat{flex:1;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.stat b{display:block;font-size:1.2rem;font-variant-numeric:tabular-nums}
+.stat small{color:var(--muted);font-size:.74rem}
+.copy{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;min-height:54px;line-height:54px;text-align:center;font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--or),var(--or2));color:#160b03;border-radius:16px;margin:0 0 14px;box-shadow:0 8px 24px -8px rgba(255,106,26,.8);transition:background .2s,transform .12s,box-shadow .2s;-webkit-tap-highlight-color:transparent}
+.copy:active{transform:scale(.96)}
+.copy.ok{background:linear-gradient(135deg,var(--em),var(--em2));color:#03140b;box-shadow:0 8px 28px -6px rgba(25,230,140,.8)}
 #tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.hint{font-size:.78rem;opacity:.85;margin:-8px 0 10px;font-weight:600}
+.hint{font-size:.76rem;color:var(--muted);margin:-8px 0 10px;font-weight:600}
 .big,.stat b{-webkit-user-select:text;user-select:text}
-.copy:hover{filter:brightness(.96)}
-h2{font-size:1rem;margin:0 0 10px;font-weight:700}
+.meter{margin-top:4px}
+.mtop{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;margin-bottom:6px;color:var(--muted)}
+#mlab{color:var(--ink)}
+.bar{height:12px;border-radius:99px;background:rgba(0,0,0,.5);border:1px solid var(--line);overflow:hidden}
+#mfill{height:100%;width:0;border-radius:99px;transition:width .6s cubic-bezier(.2,.9,.3,1.2),background .4s,box-shadow .4s}
+h2{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.05rem;margin:0 0 10px;font-weight:700}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
-th{text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line)}
-td{text-align:right;padding:10px 4px;border-bottom:1px solid var(--line)}
+th{text-align:right;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;padding:6px 6px;border-bottom:1px solid var(--line)}
+td{text-align:right;padding:11px 6px;border-bottom:1px solid var(--line);transition:color .2s}
 th:first-child,td:first-child{text-align:left}
 tr:last-child td{border-bottom:none}
-tbody tr{cursor:pointer;transition:background .15s}tbody tr:hover{background:var(--bg)}
-tr.hl td{color:var(--accent);font-weight:700}
-.note{font-size:.9rem;line-height:1.5;color:var(--muted)}.note b{color:var(--ink)}
+tbody tr{cursor:pointer;transition:background .15s,transform .12s}tbody tr:hover{background:rgba(255,255,255,.04)}tbody tr:active{transform:scale(.98)}
+tr.hl td{color:var(--em);font-weight:800;text-shadow:0 0 10px rgba(25,230,140,.5)}
+tr.hl{background:rgba(25,230,140,.08)}
+.note{font-size:.9rem;line-height:1.55;color:var(--muted)}.note b{color:var(--or2)}
 footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;letter-spacing:.04em}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+@media (prefers-reduced-motion:reduce){*,*:before{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div class="blobs"><i></i><i></i><i></i></div><canvas id="fx"></canvas>
 <div class="wrap">
 <header>
- <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 13h5l-2 9 9-12h-5l1-8z" opacity="0"/><path d="M12 3 5 13h4v8h6v-8h4z"/></svg></div>
+ <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#160b03" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 13h5l-2 9 9-12h-5l1-8z" opacity="0"/><path d="M12 3 5 13h4v8h6v-8h4z"/></svg></div>
  <div><h1>Margin Calculator</h1><div class="sub">Price it right, every time.</div></div>
 </header>
 
@@ -86,6 +107,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;lett
   <div class="stat"><small>Profit / unit</small><b id="profit">$42.86</b></div>
   <div class="stat"><small id="s2l">Markup on cost</small><b id="s2">42.86%</b></div>
  </div>
+ <div class="meter"><div class="mtop"><span>Profit meter</span><span id="mlab">—</span></div><div class="bar"><div id="mfill"></div></div></div>
 </div>
 
 <div class="card">
@@ -97,13 +119,27 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;lett
  <b>Margin vs. markup.</b> Margin is profit as a share of the <b>selling price</b>; markup is profit as a share of <b>cost</b>. A 30% margin means price = cost ÷ 0.70. Just adding 30% to cost (×1.30) only gets you about a <b>23% margin</b>.
 </div>
 
-<footer>Central Building Supply · Westcliffe, CO<br><small style="opacity:.6">v3</small></footer>
+<footer>Central Building Supply · Westcliffe, CO<br><small style="opacity:.6">v4</small></footer>
 </div>
 <script>
 const $=id=>document.getElementById(id);
 const fmt=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 const pct=n=>n.toLocaleString('en-US',{maximumFractionDigits:2})+'%';
 const num=v=>{v=String(v).replace(/[$,%\s]/g,'');return v===''?NaN:Number(v)};
+
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let shown=NaN,raf=0;
+function anim(t,f){cancelAnimationFrame(raf);const el=$('big');if(isNaN(t)){el.textContent='—';shown=NaN;return}
+ if(RM||isNaN(shown)||shown===t){el.textContent=f(t);shown=t;return}
+ const s0=shown,t0=performance.now(),D=450;(function st(n){const k=Math.min(1,(n-t0)/D),e=1-Math.pow(1-k,3),v=s0+(t-s0)*e;shown=v;el.textContent=f(k<1?v:t);if(k<1)raf=requestAnimationFrame(st);else shown=t})(t0)}
+function meter(m){const f=$('mfill'),l=$('mlab');if(isNaN(m)){f.style.width='0';l.textContent='—';return}
+ const w=Math.max(0,Math.min(100,m/50*100));f.style.width=w+'%';
+ let c,g,t;if(m<15){c='linear-gradient(90deg,#ff3d3d,#ff7a3d)';g='rgba(255,70,60,.6)';t='thin 😬'}else if(m<30){c='linear-gradient(90deg,#ff9a1a,#ffd23d)';g='rgba(255,180,40,.6)';t='solid 💪'}else{c='linear-gradient(90deg,#0fa968,#19e68c)';g='rgba(25,230,140,.7)';t='money 🔥'}
+ f.style.background=c;f.style.boxShadow='0 0 14px '+g;l.textContent=pct(m)+' · '+t}
+function confetti(){if(RM)return;const cv=$('fx'),x=cv.getContext('2d'),d=devicePixelRatio||1;cv.width=innerWidth*d;cv.height=innerHeight*d;x.setTransform(d,0,0,d,0,0);
+ const r=$('copy').getBoundingClientRect(),ox=r.left+r.width/2,oy=r.top+r.height/2,C=['#ff6a1a','#ffb02e','#19e68c','#ffffff','#7c5cff'];
+ const P=Array.from({length:90},()=>{const a=-Math.PI/2+(Math.random()-.5)*2.2,v=6+Math.random()*8;return{x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:Math.random()*6.28,vr:(Math.random()-.5)*.4,s:4+Math.random()*5,c:C[Math.random()*5|0],l:1}});
+ (function st(){x.clearRect(0,0,innerWidth,innerHeight);let alive=0;for(const p of P){if(p.l<=0)continue;alive++;p.vy+=.28;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.l-=.012;x.save();x.globalAlpha=Math.max(0,p.l);x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()}if(alive)requestAnimationFrame(st);else x.clearRect(0,0,innerWidth,innerHeight)})()}
 function priceFor(c,m){return c/(1-m/100)}
 let mode='f',cur=null;
 function calc(){
@@ -120,9 +156,10 @@ function calc(){
  $('msg').textContent=msg;
  const ok=!isNaN(price)&&!isNaN(m)&&!isNaN(c);
  const profit=ok?price-c:NaN, mk=ok&&c>0?profit/c*100:NaN;
- if(mode==='f'){$('rl').textContent='Selling price';$('big').textContent=ok?fmt(price):'—';$('s2l').textContent='Markup on cost';$('s2').textContent=isNaN(mk)?'—':pct(mk)}
- else{$('rl').textContent='Your margin';$('big').textContent=ok?pct(m):'—';$('s2l').textContent='Markup on cost';$('s2').textContent=isNaN(mk)?'—':pct(mk)}
+ if(mode==='f'){$('rl').textContent='Selling price';anim(ok?price:NaN,fmt);$('s2l').textContent='Markup on cost';$('s2').textContent=isNaN(mk)?'—':pct(mk)}
+ else{$('rl').textContent='Your margin';anim(ok?m:NaN,v=>v.toFixed(2)+'%');$('s2l').textContent='Markup on cost';$('s2').textContent=isNaN(mk)?'—':pct(mk)}
  $('profit').textContent=ok?fmt(profit):'—';
+ meter(ok?m:NaN);
  cur=ok?(mode==='f'?price.toFixed(2):m.toFixed(2)+'%'):null;
  const L=[10,15,20,25,30,35,40,50];
  $('ladc').textContent=!isNaN(c)&&c>=0?'· at '+fmt(c)+' cost':'';
@@ -135,7 +172,7 @@ function setMode(m){mode=m;$('seg').classList.toggle('rev',m==='r');document.que
 document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
 function selEl(el){try{const r=document.createRange();r.selectNodeContents(el);const sl=window.getSelection();sl.removeAllRanges();sl.addRange(r)}catch(e){}}
 function legacyCopy(txt){let ok=false;const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:-9999px;width:200px;height:40px;font-size:16px;opacity:1';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,99999);try{ok=document.execCommand('copy')}catch(e){ok=false}t.remove();try{window.getSelection().removeAllRanges()}catch(e){}return ok}
-function copyFb(ok,txt){const b=$('copy');clearTimeout(b._t);if(ok){b.textContent='Copied '+txt+' \u2713';b.classList.add('ok');try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}}else{b.textContent='Press and hold the price to copy';selEl($('big'))}b._t=setTimeout(()=>{b.textContent='Copy price';b.classList.remove('ok')},ok?2000:3500)}
+function copyFb(ok,txt){const b=$('copy');clearTimeout(b._t);if(ok){b.textContent='Copied '+txt+' \u2713';b.classList.add('ok');confetti();try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}}else{b.textContent='Press and hold the price to copy';selEl($('big'))}b._t=setTimeout(()=>{b.textContent='Copy price';b.classList.remove('ok')},ok?2000:3500)}
 function doCopy(){if(!cur){copyFb(false);return}const txt=String(cur).trim();
  const ok=legacyCopy(txt);
  if(navigator.clipboard&&navigator.clipboard.writeText){try{navigator.clipboard.writeText(txt).then(()=>{if(!ok)copyFb(true,txt)},()=>{if(!ok)copyFb(false)})}catch(e){}}
