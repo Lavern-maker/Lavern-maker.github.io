@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Margin Calculator · Central Building Supply</title>
+<meta name="theme-color" content="#1f3a2e">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f1ea;--bg2:#ede3d4;--card:#fffdf9;--ink:#2a2420;--muted:#7a6d62;--line:#e7dccd;--accent:#1f5a40;--accent2:#2f7a57;--wood:#b7793f;--wood2:#8a5a2b;--warn:#b4472f;--shadow:0 1px 2px rgba(60,40,20,.06),0 10px 30px -10px rgba(60,40,20,.18)}
+@media (prefers-color-scheme:dark){:root{--bg:#16130f;--bg2:#1f1a15;--card:#221d18;--ink:#f3ece3;--muted:#a89a8b;--line:#342c24;--accent:#4fb486;--accent2:#6fcf9f;--wood:#d79a5c;--wood2:#e8b47c;--warn:#ef8a70;--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -12px rgba(0,0,0,.6)}}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 10% -10%,var(--bg2),transparent),var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:24px 16px calc(32px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:12px;margin:8px 4px 20px}
+.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--wood),var(--wood2));display:grid;place-items:center;box-shadow:var(--shadow)}
+.logo svg{width:24px;height:24px}
+h1{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin:0}
+.sub{color:var(--muted);font-size:.85rem;margin-top:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg2);border-radius:14px;padding:4px;margin-bottom:16px;position:relative}
+.seg button{all:unset;text-align:center;padding:10px;border-radius:10px;font-weight:600;font-size:.9rem;color:var(--muted);cursor:pointer;transition:.2s;position:relative;z-index:1}
+.seg button.on{color:var(--ink)}
+.seg .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:var(--card);border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.seg.rev .pill{transform:translateX(100%)}
+label{display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 6px 4px}
+.field{position:relative;margin-bottom:14px}
+.field span{position:absolute;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1.3rem;font-weight:600;pointer-events:none}
+.field .pre{left:16px}.field .suf{right:16px}
+input{width:100%;font:inherit;font-size:1.6rem;font-weight:700;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:14px 44px 14px 38px;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.msg{color:var(--warn);font-size:.85rem;min-height:1.2em;margin:-6px 4px 6px;transition:opacity .2s}
+.result{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 70%,#0b1f16));color:#fff;border:none}
+.rl{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;opacity:.8;font-weight:600}
+.big{font-size:3rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:4px 0 12px;font-variant-numeric:tabular-nums;transition:opacity .15s}
+.row{display:flex;gap:10px}
+.stat{flex:1;background:rgba(255,255,255,.12);border-radius:12px;padding:10px 12px}
+.stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.stat small{opacity:.8;font-size:.75rem}
+.copy{all:unset;cursor:pointer;float:right;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;transition:.2s}
+.copy:hover{background:rgba(255,255,255,.28)}
+h2{font-size:1rem;margin:0 0 10px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
+th{text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line)}
+td{text-align:right;padding:10px 4px;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+tr:last-child td{border-bottom:none}
+tbody tr{cursor:pointer;transition:background .15s}tbody tr:hover{background:var(--bg)}
+tr.hl td{color:var(--accent);font-weight:700}
+.note{font-size:.9rem;line-height:1.5;color:var(--muted)}.note b{color:var(--ink)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 13h5l-2 9 9-12h-5l1-8z" opacity="0"/><path d="M12 3 5 13h4v8h6v-8h4z"/></svg></div>
+ <div><h1>Margin Calculator</h1><div class="sub">Price it right, every time.</div></div>
+</header>
+
+<div class="card">
+ <div class="seg" id="seg"><div class="pill"></div><button class="on" data-m="f">Find price</button><button data-m="r">Find margin</button></div>
+ <label for="cost">Cost</label>
+ <div class="field"><span class="pre">$</span><input id="cost" inputmode="decimal" autocomplete="off" placeholder="0.00" value="100"></div>
+ <div id="mWrap"><label for="margin">Margin</label>
+ <div class="field"><input id="margin" inputmode="decimal" autocomplete="off" placeholder="30" value="30" style="padding-left:16px"><span class="suf">%</span></div></div>
+ <div id="pWrap" hidden><label for="price">Selling price</label>
+ <div class="field"><span class="pre">$</span><input id="price" inputmode="decimal" autocomplete="off" placeholder="0.00"></div></div>
+ <div class="msg" id="msg"></div>
+</div>
+
+<div class="card result">
+ <button class="copy" id="copy">Copy</button>
+ <div class="rl" id="rl">Selling price</div>
+ <div class="big" id="big">$142.86</div>
+ <div class="row">
+  <div class="stat"><small>Profit / unit</small><b id="profit">$42.86</b></div>
+  <div class="stat"><small id="s2l">Markup on cost</small><b id="s2">42.86%</b></div>
+ </div>
+</div>
+
+<div class="card">
+ <h2>Margin ladder <span class="sub" id="ladc"></span></h2>
+ <table><thead><tr><th>Margin</th><th>Price</th><th>Profit</th><th>Markup</th></tr></thead><tbody id="lad"></tbody></table>
+</div>
+
+<div class="card note">
+ <b>Margin vs. markup.</b> Margin is profit as a share of the <b>selling price</b>; markup is profit as a share of <b>cost</b>. A 30% margin means price = cost ÷ 0.70. Just adding 30% to cost (×1.30) only gets you about a <b>23% margin</b>.
+</div>
+
+<footer>Central Building Supply · Westcliffe, CO</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=n=>n.toLocaleString('en-US',{maximumFractionDigits:2})+'%';
+const num=v=>{v=String(v).replace(/[$,%\s]/g,'');return v===''?NaN:Number(v)};
+function priceFor(c,m){return c/(1-m/100)}
+let mode='f',cur=null;
+function calc(){
+ const c=num($('cost').value);let msg='',price=NaN,m=NaN;
+ if(isNaN(c)||c<0) msg=$('cost').value?'Enter a cost of 0 or more.':'';
+ else if(mode==='f'){m=num($('margin').value);
+  if(isNaN(m)) msg=$('margin').value?'Margin must be a number.':'';
+  else if(m<0||m>=100) msg='Margin must be at least 0% and less than 100%.';
+  else price=priceFor(c,m);}
+ else{price=num($('price').value);
+  if(isNaN(price)) msg=$('price').value?'Price must be a number.':'';
+  else if(price<=0){msg='Selling price must be more than $0.';price=NaN}
+  else m=(price-c)/price*100;}
+ $('msg').textContent=msg;
+ const ok=!isNaN(price)&&!isNaN(m)&&!isNaN(c);
+ const profit=ok?price-c:NaN, mk=ok&&c>0?profit/c*100:NaN;
+ if(mode==='f'){$('rl').textContent='Selling price';$('big').textContent=ok?fmt(price):'—';$('s2l').textContent='Markup on cost';$('s2').textContent=isNaN(mk)?'—':pct(mk)}
+ else{$('rl').textContent='Your margin';$('big').textContent=ok?pct(m):'—';$('s2l').textContent='Markup on cost';$('s2').textContent=isNaN(mk)?'—':pct(mk)}
+ $('profit').textContent=ok?fmt(profit):'—';
+ cur=ok?(mode==='f'?price.toFixed(2):m.toFixed(2)+'%'):null;
+ const L=[10,15,20,25,30,35,40,50];
+ $('ladc').textContent=!isNaN(c)&&c>=0?'· at '+fmt(c)+' cost':'';
+ $('lad').innerHTML=(!isNaN(c)&&c>=0)?L.map(x=>{const p=priceFor(c,x),pr=p-c;return `<tr data-m="${x}" class="${Math.abs(m-x)<1e-9?'hl':''}"><td>${x}%</td><td>${fmt(p)}</td><td>${fmt(pr)}</td><td>${c>0?pct(pr/c*100):'—'}</td></tr>`}).join(''):'';
+}
+['cost','margin','price'].forEach(i=>$(i).addEventListener('input',calc));
+$('lad').addEventListener('click',e=>{const r=e.target.closest('tr');if(!r)return;if(mode!=='f')setMode('f');$('margin').value=r.dataset.m;calc()});
+function setMode(m){mode=m;$('seg').classList.toggle('rev',m==='r');document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));$('mWrap').hidden=m==='r';$('pWrap').hidden=m==='f';
+ if(m==='r'&&!$('price').value){const c=num($('cost').value),mm=num($('margin').value);if(c>=0&&mm>=0&&mm<100)$('price').value=priceFor(c,mm).toFixed(2)}calc()}
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+$('copy').onclick=async()=>{if(!cur)return;try{await navigator.clipboard.writeText(cur)}catch(e){const t=document.createElement('textarea');t.value=cur;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}$('copy').textContent='Copied ✓';setTimeout(()=>$('copy').textContent='Copy',1400)};
+calc();
+</script>
+</body>
+</html>
