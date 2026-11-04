@@ -39,6 +39,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,va
 .stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums}
 .stat small{opacity:.8;font-size:.75rem}
 .copy{all:unset;cursor:pointer;float:right;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;transition:.2s}
+.big,.stat b{-webkit-user-select:text;user-select:text}
 .copy:hover{background:rgba(255,255,255,.28)}
 h2{font-size:1rem;margin:0 0 10px;font-weight:700}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
@@ -125,7 +126,12 @@ $('lad').addEventListener('click',e=>{const r=e.target.closest('tr');if(!r)retur
 function setMode(m){mode=m;$('seg').classList.toggle('rev',m==='r');document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));$('mWrap').hidden=m==='r';$('pWrap').hidden=m==='f';
  if(m==='r'&&!$('price').value){const c=num($('cost').value),mm=num($('margin').value);if(c>=0&&mm>=0&&mm<100)$('price').value=priceFor(c,mm).toFixed(2)}calc()}
 document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
-$('copy').onclick=async()=>{if(!cur)return;try{await navigator.clipboard.writeText(cur)}catch(e){const t=document.createElement('textarea');t.value=cur;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}$('copy').textContent='Copied ✓';setTimeout(()=>$('copy').textContent='Copy',1400)};
+function selEl(el){try{const r=document.createRange();r.selectNodeContents(el);const sl=window.getSelection();sl.removeAllRanges();sl.addRange(r)}catch(e){}}
+function legacyCopy(txt){let ok=false;const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,txt.length);try{ok=document.execCommand('copy')}catch(e){ok=false}t.remove();return ok}
+function copyFb(ok){const b=$('copy');b.textContent=ok?'Copied!':'Press and hold to copy';if(!ok)selEl($('big'));clearTimeout(b._t);b._t=setTimeout(()=>b.textContent='Copy',ok?1500:3500)}
+$('copy').addEventListener('click',()=>{if(!cur){copyFb(false);return}const txt=String(cur).trim();
+ if(navigator.clipboard&&navigator.clipboard.writeText&&window.isSecureContext){navigator.clipboard.writeText(txt).then(()=>copyFb(true),()=>copyFb(legacyCopy(txt)))}
+ else copyFb(legacyCopy(txt))});
 calc();
 </script>
 </body>
