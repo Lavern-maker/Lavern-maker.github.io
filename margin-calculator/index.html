@@ -27,13 +27,17 @@ h1{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.7rem;font-weight:700
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px;backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:0 20px 40px -20px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.06);animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 .card:nth-of-type(2){animation-delay:.06s}.card:nth-of-type(3){animation-delay:.12s}.card:nth-of-type(4){animation-delay:.18s}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:16px;position:relative}
-.seg button{all:unset;text-align:center;padding:11px;border-radius:10px;font-weight:700;font-size:.92rem;color:var(--muted);cursor:pointer;transition:color .2s,transform .12s;position:relative;z-index:1;-webkit-tap-highlight-color:transparent}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:16px;position:relative}
+.seg button{all:unset;display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;padding:11px 2px;border-radius:10px;font-weight:700;font-size:.92rem;color:var(--muted);cursor:pointer;transition:color .2s,transform .12s;position:relative;z-index:1;-webkit-tap-highlight-color:transparent;white-space:nowrap;min-width:0}
 .seg button:active{transform:scale(.95)}
 .seg button.on{color:#120a04}
-.seg .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:linear-gradient(135deg,var(--or),var(--or2));border-radius:10px;box-shadow:0 0 18px rgba(255,106,26,.5);transition:transform .35s cubic-bezier(.5,1.6,.4,1)}
-.seg.rev .pill{transform:translateX(100%)}
+.seg .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 3);background:linear-gradient(135deg,var(--or),var(--or2));border-radius:10px;box-shadow:0 0 18px rgba(255,106,26,.5);transition:transform .35s cubic-bezier(.5,1.6,.4,1)}
+.seg.is-r .pill{transform:translateX(100%)}
+.seg.is-d .pill{transform:translateX(200%)}
 label{display:block;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 6px 4px}
+label .opt{text-transform:none;letter-spacing:0;font-weight:600}
+#dWrap .hint{margin:0 4px 2px}
+#dcost::placeholder{color:rgba(154,160,168,.62);font-size:1.15rem;font-weight:600}
 .field{position:relative;margin-bottom:14px}
 .field span{position:absolute;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1.3rem;font-weight:600;pointer-events:none}
 .field .pre{left:16px}.field .suf{right:16px}
@@ -44,6 +48,9 @@ input:focus{border-color:var(--or);box-shadow:0 0 0 4px rgba(255,106,26,.18),0 0
 .result:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(25,230,140,.12),transparent 30%);animation:spin 9s linear infinite;pointer-events:none}
 @keyframes spin{to{transform:rotate(1turn)}}
 .result>*{position:relative}
+.result.loss{border-color:rgba(255,122,102,.5);background:linear-gradient(150deg,rgba(255,90,70,.18),rgba(16,10,10,.72) 55%,rgba(255,106,26,.1))}
+.result.loss .rl{color:var(--warn)}
+.result.loss .big{color:#fff1ee;text-shadow:0 0 12px rgba(255,122,102,.75),0 0 36px rgba(255,80,60,.35)}
 .rl{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--em);font-weight:700}
 .big{font-family:'Space Grotesk',Inter,sans-serif;font-size:3.4rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin:4px 0 12px;font-variant-numeric:tabular-nums;color:#eafff4;text-shadow:0 0 12px rgba(25,230,140,.7),0 0 36px rgba(25,230,140,.35);transition:transform .15s}
 #tap:active .big{transform:scale(.97)}
@@ -51,6 +58,9 @@ input:focus{border-color:var(--or);box-shadow:0 0 0 4px rgba(255,106,26,.18),0 0
 .stat{flex:1;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
 .stat b{display:block;font-size:1.2rem;font-variant-numeric:tabular-nums}
 .stat small{color:var(--muted);font-size:.74rem}
+.stat.bad b{color:var(--warn)}
+.row[hidden]{display:none !important}
+.dealwarn{color:#ffd8d2;background:rgba(255,80,60,.14);border:1px solid rgba(255,122,102,.5);border-radius:12px;padding:10px 12px;font-size:.88rem;font-weight:700;line-height:1.35;margin:0 0 12px;text-align:center}
 .copy{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;min-height:54px;line-height:54px;text-align:center;font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--or),var(--or2));color:#160b03;border-radius:16px;margin:0 0 14px;box-shadow:0 8px 24px -8px rgba(255,106,26,.8);transition:background .2s,transform .12s,box-shadow .2s;-webkit-tap-highlight-color:transparent}
 .copy:active{transform:scale(.96)}
 .copy.ok{background:linear-gradient(135deg,var(--em),var(--em2));color:#03140b;box-shadow:0 8px 28px -6px rgba(25,230,140,.8)}
@@ -71,9 +81,14 @@ tr:last-child td{border-bottom:none}
 tbody tr{cursor:pointer;transition:background .15s,transform .12s}tbody tr:hover{background:rgba(255,255,255,.04)}tbody tr:active{transform:scale(.98)}
 tr.hl td{color:var(--em);font-weight:800;text-shadow:0 0 10px rgba(25,230,140,.5)}
 tr.hl{background:rgba(25,230,140,.08)}
+tr.loss td{color:var(--warn);text-shadow:none}
+tr.hl.loss{background:rgba(255,122,102,.1)}
+tr.hl.loss td{color:var(--warn);font-weight:800;text-shadow:none}
 .note{font-size:.9rem;line-height:1.55;color:var(--muted)}.note b{color:var(--or2)}
 footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;letter-spacing:.04em}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+@media (max-width:420px){.seg button{font-size:.78rem;padding:12px 1px}}
+@media (max-width:350px){.seg button{font-size:.68rem;letter-spacing:-.02em}}
 @media (prefers-reduced-motion:reduce){*,*:before{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -86,40 +101,56 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;lett
 </header>
 
 <div class="card">
- <div class="seg" id="seg"><div class="pill"></div><button class="on" data-m="f">Find price</button><button data-m="r">Find margin</button></div>
+ <div class="seg" id="seg"><div class="pill"></div><button class="on" data-m="f">Find price</button><button data-m="r">Find margin</button><button data-m="d">Percent off</button></div>
+ <div id="cWrap">
  <label for="cost">Cost</label>
  <div class="field"><span class="pre">$</span><input id="cost" inputmode="decimal" autocomplete="off" placeholder="0.00" value="100"></div>
+ </div>
  <div id="mWrap"><label for="margin">Margin</label>
  <div class="field"><input id="margin" inputmode="decimal" autocomplete="off" placeholder="30" value="30" style="padding-left:16px"><span class="suf">%</span></div></div>
  <div id="pWrap" hidden><label for="price">Selling price</label>
  <div class="field"><span class="pre">$</span><input id="price" inputmode="decimal" autocomplete="off" placeholder="0.00"></div></div>
+ <div id="dWrap" hidden>
+ <label for="reg">Regular price</label>
+ <div class="field"><span class="pre">$</span><input id="reg" inputmode="decimal" autocomplete="off" placeholder="0.00" enterkeyhint="done"></div>
+ <label for="off">Percent off</label>
+ <div class="field"><input id="off" inputmode="decimal" autocomplete="off" placeholder="20" value="20" enterkeyhint="done" style="padding-left:16px"><span class="suf">%</span></div>
+ <label for="dcost">Cost <span class="opt">· optional</span></label>
+ <div class="field"><span class="pre">$</span><input id="dcost" inputmode="decimal" autocomplete="off" placeholder="optional" enterkeyhint="done" spellcheck="false"></div>
+ <div class="hint">Add cost to see profit and margin after the discount.</div>
+ </div>
  <div class="msg" id="msg"></div>
 </div>
 
-<div class="card result">
+<div class="card result" id="result">
  <div id="tap" role="button" aria-label="Tap to copy price">
  <div class="rl" id="rl">Selling price</div>
  <div class="big" id="big">$142.86</div>
  <div class="hint">Tap to copy</div>
  </div>
+ <div class="dealwarn" id="dealWarn" hidden></div>
  <button class="copy" id="copy">Copy price</button>
  <div class="row">
-  <div class="stat"><small>Profit / unit</small><b id="profit">$42.86</b></div>
+  <div class="stat"><small id="s1l">Profit / unit</small><b id="profit">$42.86</b></div>
   <div class="stat"><small id="s2l">Markup on cost</small><b id="s2">42.86%</b></div>
  </div>
- <div class="meter"><div class="mtop"><span>Profit meter</span><span id="mlab">—</span></div><div class="bar"><div id="mfill"></div></div></div>
+ <div class="row" id="extra" hidden>
+  <div class="stat" id="eProfitWrap"><small>Profit / unit</small><b id="eProfit">—</b></div>
+  <div class="stat" id="eMarginWrap"><small>Margin</small><b id="eMargin">—</b></div>
+ </div>
+ <div class="meter" id="meter"><div class="mtop"><span>Profit meter</span><span id="mlab">—</span></div><div class="bar"><div id="mfill"></div></div></div>
 </div>
 
 <div class="card">
- <h2>Margin ladder <span class="sub" id="ladc"></span></h2>
- <table><thead><tr><th>Margin</th><th>Price</th><th>Profit</th><th>Markup</th></tr></thead><tbody id="lad"></tbody></table>
+ <h2><span id="ladt">Margin ladder</span> <span class="sub" id="ladc"></span></h2>
+ <table><thead><tr id="heads"><th>Margin</th><th>Price</th><th>Profit</th><th>Markup</th></tr></thead><tbody id="lad"></tbody></table>
 </div>
 
 <div class="card note">
  <b>Margin vs. markup.</b> Margin is profit as a share of the <b>selling price</b>; markup is profit as a share of <b>cost</b>. A 30% margin means price = cost ÷ 0.70. Just adding 30% to cost (×1.30) only gets you about a <b>23% margin</b>.
 </div>
 
-<footer>Central Building Supply · Westcliffe, CO<br><small style="opacity:.6">v4</small></footer>
+<footer>Central Building Supply · Westcliffe, CO<br><small style="opacity:.6">v5</small></footer>
 </div>
 <script>
 const $=id=>document.getElementById(id);
@@ -129,9 +160,10 @@ const num=v=>{v=String(v).replace(/[$,%\s]/g,'');return v===''?NaN:Number(v)};
 
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let shown=NaN,raf=0;
-function anim(t,f){cancelAnimationFrame(raf);const el=$('big');if(isNaN(t)){el.textContent='—';shown=NaN;return}
- if(RM||isNaN(shown)||shown===t){el.textContent=f(t);shown=t;return}
- const s0=shown,t0=performance.now(),D=450;(function st(n){const k=Math.min(1,(n-t0)/D),e=1-Math.pow(1-k,3),v=s0+(t-s0)*e;shown=v;el.textContent=f(k<1?v:t);if(k<1)raf=requestAnimationFrame(st);else shown=t})(t0)}
+function fitBig(){const el=$('big');el.style.fontSize='';const max=el.parentElement.clientWidth;let size=parseFloat(getComputedStyle(el).fontSize);while(el.scrollWidth>max+1&&size>26){size-=1;el.style.fontSize=size+'px'}}
+function anim(t,f){cancelAnimationFrame(raf);const el=$('big');if(isNaN(t)){el.textContent='—';el.style.fontSize='';shown=NaN;return}
+ if(RM||isNaN(shown)||shown===t){el.textContent=f(t);shown=t;fitBig();return}
+ const s0=shown,t0=performance.now(),D=450;(function st(n){const k=Math.min(1,(n-t0)/D),e=1-Math.pow(1-k,3),v=s0+(t-s0)*e;shown=v;el.textContent=f(k<1?v:t);fitBig();if(k<1)raf=requestAnimationFrame(st);else shown=t})(t0)}
 function meter(m){const f=$('mfill'),l=$('mlab');if(isNaN(m)){f.style.width='0';l.textContent='—';return}
  const w=Math.max(0,Math.min(100,m/50*100));f.style.width=w+'%';
  let c,g,t;if(m<15){c='linear-gradient(90deg,#ff3d3d,#ff7a3d)';g='rgba(255,70,60,.6)';t='thin 😬'}else if(m<30){c='linear-gradient(90deg,#ff9a1a,#ffd23d)';g='rgba(255,180,40,.6)';t='solid 💪'}else{c='linear-gradient(90deg,#0fa968,#19e68c)';g='rgba(25,230,140,.7)';t='money 🔥'}
@@ -141,8 +173,87 @@ function confetti(){if(RM)return;const cv=$('fx'),x=cv.getContext('2d'),d=device
  const P=Array.from({length:90},()=>{const a=-Math.PI/2+(Math.random()-.5)*2.2,v=6+Math.random()*8;return{x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:Math.random()*6.28,vr:(Math.random()-.5)*.4,s:4+Math.random()*5,c:C[Math.random()*5|0],l:1}});
  (function st(){x.clearRect(0,0,innerWidth,innerHeight);let alive=0;for(const p of P){if(p.l<=0)continue;alive++;p.vy+=.28;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.l-=.012;x.save();x.globalAlpha=Math.max(0,p.l);x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()}if(alive)requestAnimationFrame(st);else x.clearRect(0,0,innerWidth,innerHeight)})()}
 function priceFor(c,m){return c/(1-m/100)}
-let mode='f',cur=null;
+const OFFS=[5,10,15,20,25,30,40,50];
+function moneyCents(n){return Math.round(n*100+(n>=0?1e-6:-1e-6))}
+function saleCents(regCents,d){return Math.round(regCents*(100-d)/100)}
+function fmtSignedCents(c){return (c<0?'-':'')+fmt(Math.abs(c)/100)}
+let mode='f',cur=null,ladderKind='';
+function setLadder(kind){
+ if(ladderKind===kind) return;
+ ladderKind=kind;
+ $('ladt').textContent=kind==='margin'?'Margin ladder':'Discount ladder';
+ $('heads').innerHTML=kind==='margin'
+  ?'<th>Margin</th><th>Price</th><th>Profit</th><th>Markup</th>'
+  :kind==='offcost'
+   ?'<th>Off</th><th>Sale</th><th>Saved</th><th>Margin</th>'
+   :'<th>Off</th><th>Sale</th><th>Saved</th>';
+}
+function calcOff(){
+ const reg=num($('reg').value), d=num($('off').value);
+ const costRaw=$('dcost').value.trim(), c=num(costRaw);
+ let msg='', dOk=false, regOk=false, regC=0, costC=0, saleC=0, profitC=0, margin=NaN;
+ if(isNaN(reg)) msg=$('reg').value?'Regular price must be a number.':'';
+ else{regC=moneyCents(reg); if(regC<=0) msg='Regular price must be more than $0.'; else regOk=true}
+ if(regOk){
+  if(isNaN(d)) msg=$('off').value?'Discount must be a number.':'';
+  else if(d<0||d>100) msg='Discount must be at least 0% and at most 100%.';
+  else dOk=true;
+ }
+ const costEntered=costRaw!=='';
+ let costOk=false, costMsg='';
+ if(costEntered){
+  if(isNaN(c)) costMsg='Cost must be a number.';
+  else if(c<0) costMsg='Enter a cost of 0 or more.';
+  else{costOk=true; costC=moneyCents(c)}
+ }
+ if(!msg) msg=costMsg;
+ let sale=NaN, saved=NaN;
+ if(regOk&&dOk){
+  saleC=saleCents(regC,d); sale=saleC/100; saved=(regC-saleC)/100;
+  if(costOk){profitC=saleC-costC; margin=saleC>0?(saleC-costC)/saleC*100:NaN}
+ }
+ const show=regOk&&dOk, showCost=show&&costOk, below=showCost&&saleC<costC;
+ $('msg').textContent=msg;
+ $('rl').textContent='Sale price';
+ $('tap').setAttribute('aria-label','Tap to copy sale price');
+ anim(show?sale:NaN,fmt);
+ $('result').classList.toggle('loss',below);
+ $('dealWarn').hidden=!below;
+ if(below) $('dealWarn').textContent='Below cost by '+fmt((costC-saleC)/100)+". You'd lose money on this deal.";
+ $('s1l').textContent='Dollars saved';
+ $('profit').textContent=show?fmt(saved):'—';
+ $('s2l').textContent='Percent off';
+ $('s2').textContent=show?pct(d):'—';
+ $('extra').hidden=!showCost;
+ if(showCost){
+  $('eProfit').textContent=fmtSignedCents(profitC);
+  $('eMargin').textContent=isNaN(margin)?'—':pct(margin);
+  $('eProfitWrap').classList.toggle('bad',profitC<0);
+  $('eMarginWrap').classList.toggle('bad',!isNaN(margin)&&margin<0);
+ }
+ $('meter').hidden=!showCost;
+ meter(showCost?margin:NaN);
+ if(below&&!isNaN(margin)) $('mlab').textContent=pct(margin)+' · below cost';
+ else if(below) $('mlab').textContent='below cost';
+ cur=show?(saleC/100).toFixed(2):null;
+ setLadder(costOk?'offcost':'off');
+ $('ladc').textContent=regOk?'· at '+fmt(regC/100)+' regular':'';
+ $('lad').innerHTML=regOk?OFFS.map(x=>{
+  const p=saleCents(regC,x), sv=regC-p, loss=costOk&&p<costC, hl=dOk&&Math.abs(d-x)<1e-9;
+  const mg=costOk&&p>0?(p-costC)/p*100:NaN;
+  const mcell=costOk?'<td>'+(p>0?pct(mg):'—')+'</td>':'';
+  return '<tr data-off="'+x+'" class="'+((hl?'hl ':'')+(loss?'loss':'')).trim()+'"><td>'+x+'%</td><td>'+fmt(p/100)+'</td><td>'+fmt(sv/100)+'</td>'+mcell+'</tr>';
+ }).join(''):'';
+}
 function calc(){
+ if(mode==='d'){calcOff();return}
+ $('extra').hidden=true;
+ $('meter').hidden=false;
+ $('dealWarn').hidden=true;
+ $('result').classList.remove('loss');
+ $('s1l').textContent='Profit / unit';
+ $('tap').setAttribute('aria-label','Tap to copy price');
+ setLadder('margin');
  const c=num($('cost').value);let msg='',price=NaN,m=NaN;
  if(isNaN(c)||c<0) msg=$('cost').value?'Enter a cost of 0 or more.':'';
  else if(mode==='f'){m=num($('margin').value);
@@ -165,10 +276,15 @@ function calc(){
  $('ladc').textContent=!isNaN(c)&&c>=0?'· at '+fmt(c)+' cost':'';
  $('lad').innerHTML=(!isNaN(c)&&c>=0)?L.map(x=>{const p=priceFor(c,x),pr=p-c;return `<tr data-m="${x}" class="${Math.abs(m-x)<1e-9?'hl':''}"><td>${x}%</td><td>${fmt(p)}</td><td>${fmt(pr)}</td><td>${c>0?pct(pr/c*100):'—'}</td></tr>`}).join(''):'';
 }
-['cost','margin','price'].forEach(i=>$(i).addEventListener('input',calc));
-$('lad').addEventListener('click',e=>{const r=e.target.closest('tr');if(!r)return;if(mode!=='f')setMode('f');$('margin').value=r.dataset.m;calc()});
-function setMode(m){mode=m;$('seg').classList.toggle('rev',m==='r');document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));$('mWrap').hidden=m==='r';$('pWrap').hidden=m==='f';
- if(m==='r'&&!$('price').value){const c=num($('cost').value),mm=num($('margin').value);if(c>=0&&mm>=0&&mm<100)$('price').value=priceFor(c,mm).toFixed(2)}calc()}
+['cost','margin','price','reg','off','dcost'].forEach(i=>$(i).addEventListener('input',calc));
+$('lad').addEventListener('click',e=>{const r=e.target.closest('tr');if(!r)return;
+ if(mode==='d'){if(r.dataset.off!=null){$('off').value=r.dataset.off;calc()}return}
+ if(mode!=='f')setMode('f');$('margin').value=r.dataset.m;calc()});
+function setMode(m){mode=m;const seg=$('seg');seg.classList.toggle('is-r',m==='r');seg.classList.toggle('is-d',m==='d');
+ document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+ $('cWrap').hidden=m==='d';$('mWrap').hidden=m!=='f';$('pWrap').hidden=m!=='r';$('dWrap').hidden=m!=='d';
+ if(m==='r'&&!$('price').value){const c=num($('cost').value),mm=num($('margin').value);if(c>=0&&mm>=0&&mm<100)$('price').value=priceFor(c,mm).toFixed(2)}
+ shown=NaN;calc()}
 document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
 function selEl(el){try{const r=document.createRange();r.selectNodeContents(el);const sl=window.getSelection();sl.removeAllRanges();sl.addRange(r)}catch(e){}}
 function legacyCopy(txt){let ok=false;const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.cssText='position:fixed;top:0;left:-9999px;width:200px;height:40px;font-size:16px;opacity:1';document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,99999);try{ok=document.execCommand('copy')}catch(e){ok=false}t.remove();try{window.getSelection().removeAllRanges()}catch(e){}return ok}
